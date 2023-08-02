@@ -26,10 +26,10 @@ index.pop(0)
 index 	=	list(map(int,index))
 data    = dict()
 for idx,col in enumerate(columns):
-    try:
-    	data[col] = [ float(i[idx+1]) for i in data_read[1:] ]
-    except Exception as e:
-    	data[col] = [ i[idx+1] for i in data_read[1:] ]
+	try:
+		data[col] = [ float(i[idx+1]) for i in data_read[1:] ]
+	except Exception as e:
+		data[col] = [ i[idx+1] for i in data_read[1:] ]
 assert( columns == list( data.keys() ) )
 #print(f"Features we are working with are as follow:\n{data.keys()}")
 
@@ -91,7 +91,7 @@ def sampling( num:int ) -> list :
 		del temp_
 	return finallist
 temp.write( "Start Sampling")
-samples 	= 	sampling( 500000 )
+samples 	= 	sampling( 300 )
 temp.write( "Sampling Completed")
 V 			=	[samples[i][0] for i in range(len(samples))]
 W 			=	[samples[i][1] for i in range(len(samples))]
@@ -113,7 +113,7 @@ if __name__ == '__main__' : # we are using this statement due to the error of fr
 		outcome		=	pm.Normal( "h" , mu = mu , sigma = h_sigma , observed = H )
 
 		# draw n posterior samples
-		sample 		=	pm.sample(4000)
+		sample 		=	pm.sample(40)
 	fig 		=	plt.figure( figsize = (22,10) , layout = 'constrained' , label = "Results")
 	subfigs		=	fig.subfigures( 1 , 2 )
 	axleft 		=	subfigs[0].subplots(4,1)
@@ -121,5 +121,5 @@ if __name__ == '__main__' : # we are using this statement due to the error of fr
 	az.plot_posterior( sample  , ax = axleft )
 	az.plot_trace( sample  , axes = axright )
 	fig.savefig( img_path + "BEL results.png")
-	print("done")
+	print("\n**** Modelling is completed! ****\n")
 temp.close()
